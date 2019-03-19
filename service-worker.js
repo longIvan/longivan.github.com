@@ -1,7 +1,6 @@
-const CACHE_NAME = 'langyue';
-const DATA_CACHE_NAME = 'data-langyue';
+const CACHE_NAME = 'langyue-v3';
 self.addEventListener('install', function(event) {
-    console.log('Service Worker install23');
+    console.log('Service Worker install12345');
     event.waitUntil(
         caches.open(CACHE_NAME).then(function(cache) {
             return cache.addAll([
@@ -30,13 +29,13 @@ self.addEventListener('install', function(event) {
     );
 });
 
-self.addEventListener('activate', event => {
+self.addEventListener('activate', function(event) {
     console.log('Service Worker Activate');
     event.waitUntil(
         caches.keys().then(function(keyList) {
             return Promise.all(
                 keyList.map(function(key) {
-                    if (key !== CACHE_NAME && key !== DATA_CACHE_NAME) {
+                    if (key !== CACHE_NAME) {
                         console.log('Service Worker Removing old cache', key);
                         return caches.delete(key);
                     }
@@ -69,7 +68,7 @@ self.addEventListener('fetch', function(event) {
 
                 // 请求成功的话，将请求缓存起来。
                 const responseClone = httpRes.clone();
-                caches.open(DATA_CACHE_NAME).then(function(cache) {
+                caches.open(CACHE_NAME).then(function(cache) {
                     cache.put(event.request, responseClone);
                 });
 

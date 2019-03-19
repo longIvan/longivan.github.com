@@ -95,6 +95,12 @@ body {
   flex: 1;
 }
 
+.update-content {
+  margin-top: 20px;
+  font-size: 22px;
+  text-align: center;
+}
+
 .section {
   max-width: 640px;
   margin: 10px auto 10px;

@@ -11,7 +11,7 @@ const routeMap = {
 };
 window.router = new Route(routeMap);
 router.init(location.pathname);
-
+router.go('/');
 
 const serviceWorkerInstance = registerServiceWorker();
 //注册 Service-Worker
@@ -20,6 +20,8 @@ function registerServiceWorker() {
         return navigator.serviceWorker
             .register('service-worker.js')
             .then(function(registration) {
+                console.log('langyue');
+
                 if (registration.installing) {
                     console.log('Service worker installing');
                 } else if (registration.waiting) {
@@ -34,6 +36,15 @@ function registerServiceWorker() {
             });
     }
 }
+
+// const version = '1.0.1';
+// navigator.serviceWorker.register('service-worker.js').then(function(reg) {
+//     if (localStorage.getItem('sw_version') !== version) {
+//         reg.update().then(function() {
+//             localStorage.setItem('sw_version', version);
+//         });
+//     }
+// });
 
 const sendMessageButton = document.querySelector('.push-message');
 sendMessageButton.addEventListener('click', () => {
@@ -99,6 +110,10 @@ navigator.serviceWorker.addEventListener('message', event => {
 });
 
 const appSettingDom = document.querySelector('.app-setting');
-appSettingDom.addEventListener('click', ()=>{
-    router.go('/setting');
-},false);
+appSettingDom.addEventListener(
+    'click',
+    () => {
+        router.go('/setting');
+    },
+    false
+);
