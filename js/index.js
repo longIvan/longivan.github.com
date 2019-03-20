@@ -11,7 +11,6 @@ const routeMap = {
 };
 window.router = new Route(routeMap);
 router.init(location.pathname);
-router.go('/');
 
 const serviceWorkerInstance = registerServiceWorker();
 //注册 Service-Worker
@@ -20,8 +19,7 @@ function registerServiceWorker() {
         return navigator.serviceWorker
             .register('service-worker.js')
             .then(function(registration) {
-                console.log('langyue');
-
+                router.go('/');
                 if (registration.installing) {
                     console.log('Service worker installing');
                 } else if (registration.waiting) {
